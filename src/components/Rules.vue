@@ -1,20 +1,33 @@
 <template>
   <ul>
-    <li :data-test-rule="key" :key="key" v-for="(label, key) in rulesLabels">{{label}}</li>
+    <li :data-test-rule="rule" :key="rule" v-for="(label, rule) in rulesLabels">{{label}}</li>
   </ul>
 </template>
 <script>
+
+export const RULE = {
+  OneLetter: 'OneLetter',
+  UpperAndLower: 'UpperAndLower',
+  OneNumber: 'OneNumber',
+  SpecialSymbol: 'SpecialSymbol',
+  LongerThan4: 'LongerThan4',
+  LongerThan8: 'LongerThan8',
+  LongerThan12: 'LongerThan12',
+};
+
 export default {
-  data: () => ({
-    rulesLabels: {
-      oneLetter: 'Has at least one letter',
-      upperLower: 'Has at least one lower and one upper case letter',
-      oneNumber: 'Has at least one number',
-      special: 'Has at least one special character',
-      length5: 'Has length > 4',
-      length9: 'Has length > 8',
-      length13: 'Has length > 12',
+  computed: {
+    rulesLabels() {
+      return {
+        [RULE.OneLetter]: 'Has at least one letter',
+        [RULE.UpperAndLower]: 'Has at least one lower and one upper case letter',
+        [RULE.OneNumber]: 'Has at least one number',
+        [RULE.SpecialSymbol]: 'Has at least one special character',
+        [RULE.LongerThan4]: 'Has length > 4',
+        [RULE.LongerThan8]: 'Has length > 8',
+        [RULE.LongerThan12]: 'Has length > 12',
+      };
     },
-  }),
+  },
 };
 </script>

@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import { mount } from '@vue/test-utils';
 import PasswordCheck from '../../../src/views/PasswordCheck.vue';
 
@@ -6,6 +7,11 @@ describe('PasswordCheck', () => {
 
   const mountComponent = () => {
     wrapper = mount(PasswordCheck);
+  };
+
+  const setPasswordTo = async (password) => {
+    wrapper.get('[data-test="password-field"]').setValue(password);
+    await Vue.nextTick();
   };
 
   beforeEach(() => {
@@ -28,8 +34,8 @@ describe('PasswordCheck', () => {
 
   describe('rules', () => {
     describe('when password has one letter', () => {
-      beforeEach(() => {
-        wrapper.get('[data-test="password-field"]').setValue('a');
+      beforeEach(async () => {
+        await setPasswordTo('a');
       });
 
       it.todo('should highlight one letter is satisfied');
@@ -37,8 +43,8 @@ describe('PasswordCheck', () => {
     });
 
     describe('when password has lower an upper letters', () => {
-      beforeEach(() => {
-        wrapper.get('[data-test="password-field"]').setValue('aB');
+      beforeEach(async () => {
+        await setPasswordTo('aB');
       });
 
       it.todo('should highlight one letter is satisfied');
@@ -46,6 +52,7 @@ describe('PasswordCheck', () => {
       it.todo('should not highlight number satisfied');
     });
   });
+
 
   describe('strength validation', () => {
     it('should be rendered', () => {
@@ -56,8 +63,8 @@ describe('PasswordCheck', () => {
       const examples = ['', 'aaa', 'aB$4'];
 
       examples.forEach((password) => {
-        it(`should show that password "${password}" is weak`, () => {
-          wrapper.get('[data-test="password-field"]').setValue(password);
+        it(`should show that password "${password}" is weak`, async () => {
+          await setPasswordTo(password);
 
           expect(wrapper.get('[data-test="password-strength"]').text()).toEqual('Weak');
         });
@@ -68,8 +75,8 @@ describe('PasswordCheck', () => {
       const examples = ['aB$41', '1234567891233Rademade', '1234567Av$'];
 
       examples.forEach((password) => {
-        it(`should show that password "${password}" is strong`, () => {
-          wrapper.get('[data-test="password-field"]').setValue(password);
+        it(`should show that password "${password}" is strong`, async () => {
+          await setPasswordTo(password);
 
           expect(wrapper.get('[data-test="password-strength"]').text()).toEqual('Strong');
         });
