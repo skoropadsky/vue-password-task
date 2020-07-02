@@ -1,9 +1,18 @@
-# Live Coding
+# Password strength task
 ## Pre requirements
 Have installed:
 * Git
 * Yarn
 * IDE
+
+## Requirements
+* Fork this repo
+* Make failing tests pass
+* Implement tests that are in .todo
+* Complete the task described in briefing
+* Add classnames to HTML templates according to BEM
+* Meet the limitations
+* Once the task is done make PR back to this repo and assign PR to one of repo admins
 
 ## Briefing
 You're provided with only one input.
@@ -19,6 +28,10 @@ Rules:
 * Has length > 4
 * Has length > 8
 * Has length > 12
+
+## Limitations
+* You can change components and structure to your taste
+* You can change tests strucure as well unless you luse some test cases
 
 ## Project setup and start
 Clone this repo and run:
