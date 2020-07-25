@@ -38,8 +38,12 @@ describe('PasswordCheck', () => {
         await setPasswordTo('a');
       });
 
-      it.todo('should highlight one letter is satisfied');
-      it.todo('should not highlight number satisfied');
+      it('should highlight one letter is satisfied', () => {
+        expect(wrapper.get('[data-test-rule="OneLetter"]').classes('rules__rule--valid')).toBe(true);
+      });
+      it('should not highlight number satisfied', () => {
+        expect(wrapper.get('[data-test-rule="OneNumber"]').classes('rules__rule--valid')).toBe(false);
+      });
     });
 
     describe('when password has lower an upper letters', () => {
@@ -47,12 +51,17 @@ describe('PasswordCheck', () => {
         await setPasswordTo('aB');
       });
 
-      it.todo('should highlight one letter is satisfied');
-      it.todo('should highlight upper and lower letter is satisfied');
-      it.todo('should not highlight number satisfied');
+      it('should highlight one letter is satisfied', () => {
+        expect(wrapper.get('[data-test-rule="OneLetter"]').classes('rules__rule--valid')).toBe(true);
+      });
+      it('should highlight upper and lower letter is satisfied', () => {
+        expect(wrapper.get('[data-test-rule="UpperAndLower"]').classes('rules__rule--valid')).toBe(true);
+      });
+      it('should not highlight number satisfied', () => {
+        expect(wrapper.get('[data-test-rule="OneNumber"]').classes('rules__rule--valid')).toBe(false);
+      });
     });
   });
-
 
   describe('strength validation', () => {
     it('should be rendered', () => {

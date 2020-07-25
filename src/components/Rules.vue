@@ -1,6 +1,13 @@
 <template>
   <ul>
-    <li :data-test-rule="rule" :key="rule" v-for="(label, rule) in rulesLabels">{{label}}</li>
+    <li
+      :data-test-rule="rule"
+      :key="rule"
+      v-for="(label, rule) in rulesLabels"
+      :class="{'rules__rule--valid': validRules[rule] }"
+    >
+      {{label}}
+    </li>
   </ul>
 </template>
 <script>
@@ -16,6 +23,9 @@ export const RULE = {
 };
 
 export default {
+  props: {
+    validRules: Object,
+  },
   computed: {
     rulesLabels() {
       return {
@@ -31,3 +41,8 @@ export default {
   },
 };
 </script>
+<style lang="css" scoped>
+  .rules__rule--valid {
+    color: green;
+  }
+</style>

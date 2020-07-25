@@ -1,6 +1,10 @@
 <template>
-  <span>Weak or strong?</span>
+  <span>{{ status }}</span>
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    status: String,
+  },
+};
 </script>
