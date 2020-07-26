@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PasswordInput :value="password" @updated-value="updatedValue" />
+    <PasswordInput :value="pass" @updated-value="updatedValue" />
     <Rules :valid-rules="validRules"/>
     <PasswordStrengthIndicator
       data-test="password-strength"
@@ -12,6 +12,7 @@
 import PasswordInput from '../components/PasswordInput.vue';
 import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator.vue';
 import Rules from '../components/Rules.vue';
+import usePasswordValidation from '@/composition/usePasswordValidation';
 
 export default {
   components: {
@@ -19,53 +20,16 @@ export default {
     PasswordInput,
     PasswordStrengthIndicator,
   },
-  data() {
+  setup() {
+    const { password: pass, updatedValue, validRules, weakOrStrong } = usePasswordValidation();
+
     return {
-      password: '',
-    };
-  },
-  methods: {
-      updatedValue(val) {
-          this.password = val;
-      }
-  },
-  computed: {
-    hasAtLeastOneLetter() {
-      return /[a-zA-Z]+/.test(this.password);
-    },
-    hasAtLeastOneUpperAndLower() {
-      return /[a-z]+.*[A-Z]+|[A-Z]+.*[a-z]+/.test(this.password);
-    },
-    hasAtLeastOneNumber() {
-      return /\d+/.test(this.password);
-    },
-    hasAtLeastOneSpecialSymbol() {
-      return /[$&+,:;=?@#|'<>.^*()%!-]+/.test(this.password);
-    },
-    hasLengthLongerThan4() {
-      return this.password.length > 4;
-    },
-    hasLengthLongerThan8() {
-      return this.password.length > 8;
-    },
-    hasLengthLongerThan12() {
-      return this.password.length > 12;
-    },
-    validRules() {
-      return {
-        OneLetter: this.hasAtLeastOneLetter,
-        UpperAndLower: this.hasAtLeastOneUpperAndLower,
-        OneNumber: this.hasAtLeastOneNumber,
-        SpecialSymbol: this.hasAtLeastOneSpecialSymbol,
-        LongerThan4: this.hasLengthLongerThan4,
-        LongerThan8: this.hasLengthLongerThan8,
-        LongerThan12: this.hasLengthLongerThan12,
-      };
-    },
-    weakOrStrong() {
-      return (Object.values(this.validRules).filter((rule) => rule).length > 4) ? 'Strong' : 'Weak';
-    },
-  },
+      pass,
+      updatedValue,
+      validRules,
+      weakOrStrong
+    }
+  }
 };
 </script>
 <style>
