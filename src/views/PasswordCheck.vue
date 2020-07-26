@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PasswordInput :value.sync="password" />
+    <PasswordInput :value="password" @updated-value="updatedValue" />
     <Rules :valid-rules="validRules"/>
     <PasswordStrengthIndicator
       data-test="password-strength"
@@ -23,6 +23,11 @@ export default {
     return {
       password: '',
     };
+  },
+  methods: {
+      updatedValue(val) {
+          this.password = val;
+      }
   },
   computed: {
     hasAtLeastOneLetter() {
